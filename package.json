@@ -1,0 +1,34 @@
+{
+  "name": "vite-web-extension",
+  "version": "1.0.0",
+  "displayName": "Vite Web Extension",
+  "author": "@samrum/vite-plugin-web-extension",
+  "description": "A @samrum/vite-plugin-web-extension web extension",
+  "scripts": {
+    "build": "vite build",
+    "watch": "vite build --watch --mode development --minify false",
+    "dev": "vite",
+    "serve:firefox": "web-ext run --start-url \"about:debugging#/runtime/this-firefox\"  --source-dir ./dist/",
+    "serve:chrome": "web-ext run -t chromium --start-url \"https://google.com\" --source-dir ./dist/",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@samrum/vite-plugin-web-extension": "^3.1.1",
+    "@sveltejs/vite-plugin-svelte": "^2.0.3",
+    "@tsconfig/svelte": "^3.0.0",
+    "@types/chrome": "^0.0.217",
+    "@types/webextension-polyfill": "^0.10.0",
+    "svelte": "^3.55.1",
+    "svelte-check": "^3.0.4",
+    "svelte-preprocess": "^5.0.1",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5",
+    "vite": "~4.1.4",
+    "web-ext": "^7.4.0"
+  },
+  "dependencies": {
+    "webextension-polyfill": "^0.10.0"
+  },
+  "type": "module"
+}
