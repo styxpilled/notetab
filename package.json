@@ -28,6 +28,8 @@
     "web-ext": "^7.4.0"
   },
   "dependencies": {
+    "@bytemd/plugin-gfm": "^1.21.0",
+    "bytemd": "^1.21.0",
     "webextension-polyfill": "^0.10.0"
   },
   "type": "module"
