@@ -30,6 +30,7 @@
   "dependencies": {
     "@bytemd/plugin-gfm": "^1.21.0",
     "bytemd": "^1.21.0",
+    "svelte-local-storage-store": "^0.4.0",
     "webextension-polyfill": "^0.10.0"
   },
   "type": "module"
