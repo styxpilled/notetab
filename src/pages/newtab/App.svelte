@@ -2,16 +2,28 @@
   import 'bytemd/dist/index.css';
   import { Editor, Viewer } from 'bytemd';
   import gfm from '@bytemd/plugin-gfm';
+  import { onMount } from 'svelte';
+
+  const plugins = [gfm()];
 
   let value = '';
-  const plugins = [
-    gfm(),
-    // Add more plugins here
-  ];
+  let timeout: number;
 
-  function handleChange(e) {
+  const debounce = () => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      localStorage.setItem('note', value);
+    }, 500);
+  };
+
+  const handleChange = (e) => {
     value = e.detail.value;
-  }
+    debounce();
+  };
+
+  onMount(() => {
+    value = localStorage.getItem('note') || '';
+  });
 </script>
 
 <main>
