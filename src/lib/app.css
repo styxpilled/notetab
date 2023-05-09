@@ -1,8 +1,27 @@
 :root {
   --color-error-400: 235 127 133; /* ⬅ #eb7f85 */
   --color-accent-400: 3 103 224;     /* <- #78bbfa */
-
+  --color-surface-50: 22 22 22;      /* <- #161616 */
+  --color-surface-400: 84 84 84;     /* <- #545454 */
+  --color-surface-700: 178 178 178;  /* <- #b2b2b2 */
   --item-color: var(--color-accent-400);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--color-surface-400)) transparent;
+}
+
+::-webkit-scrollbar {
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(var(--color-surface-400));
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
 }
 
 .content ol,

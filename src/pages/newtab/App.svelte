@@ -72,6 +72,7 @@
             {/if}
             <button
               class:active={$currentTab === tab}
+              class="content"
               on:click={() => ($currentTab = tab)}
             >
               {tab}
@@ -97,12 +98,24 @@
 
 <style>
   :global(html, body) {
-    background-color: aliceblue;
-    color: black;
+    background-color: rgb(var(--color-surface-50));
+    color: gb(var(--color-surface-700));
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
+  }
+
+  :global(.bytemd, .bytemd-toolbar) {
+    background-color: rgb(var(--color-surface-50));
+    color: rgb(var(--color-surface-700));
+  }
+  :global(.CodeMirror) {
+    background-color: rgb(var(--color-surface-50));
+    color: rgb(var(--color-surface-700));
+  }
+  :global(.CodeMirror-cursor) {
+    border-left: 1px solid rgb(var(--color-surface-700));
   }
 
   main {
@@ -117,12 +130,16 @@
     height: 50rem;
   }
 
+  li .content {
+    font-size: 1.6rem;
+  }
+
   li:not(.active) {
     padding-left: 4rem;
   }
 
   button.active {
-    background-color: lightskyblue;
+    background-color: rgb(var(--color-accent-400));
   }
 
   :global(.bytemd) {
