@@ -1,9 +1,12 @@
 <script lang="ts">
-  // import '~/lib/remedy.css';
+  import '~/lib/app.css';
   import 'bytemd/dist/index.css';
   import { Editor, Viewer } from 'bytemd';
   import gfm from '@bytemd/plugin-gfm';
   import { tabs, currentTab } from '~/lib/helpers';
+  import MdiDelete from '~icons/mdi/delete';
+  import MdiPlus from '~icons/mdi/plus';
+  import MdiPencil from '~icons/mdi/pencil';
 
   const plugins = [gfm()];
 
@@ -31,27 +34,40 @@
     renameTarget = '';
     renamed = '';
   };
+
+  const deleteTab = () => {
+    const tabKeys = Object.keys($tabs).reverse();
+    if (tabKeys.length === 1) {
+      return;
+    }
+    const index = tabKeys.indexOf($currentTab);
+    delete $tabs[$currentTab];
+    if (index === 0) {
+      $currentTab = tabKeys[1];
+    } else {
+      $currentTab = tabKeys[0];
+    }
+    $tabs = $tabs;
+  };
 </script>
 
 <main>
-  <aside>
-    <button class="plus" on:click={addTab}> + </button>
+  <aside class="content">
+    <button class="plus" on:click={addTab}><MdiPlus /></button>
     <ul>
       {#each Object.keys($tabs).reverse() as tab}
         {#if renameTarget !== tab}
-          <li>
+          <li class:active={$currentTab === tab}>
             {#if $currentTab === tab}
               <button
+                class="btn"
                 on:click={() => {
                   renameTarget = tab;
                   renamed = tab;
-                }}>Rename</button
+                }}><MdiPencil /></button
               >
-              <button
-                on:click={() => {
-                  delete $tabs[tab];
-                  $tabs = $tabs;
-                }}>Delete</button
+              <button class="btn error" on:click={deleteTab}
+                ><MdiDelete /></button
               >
             {/if}
             <button
@@ -101,11 +117,11 @@
     height: 50rem;
   }
 
-  .plus {
-    background-color: red;
+  li:not(.active) {
+    padding-left: 4rem;
   }
 
-  .active {
+  button.active {
     background-color: lightskyblue;
   }
 
