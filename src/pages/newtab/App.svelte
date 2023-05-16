@@ -1,26 +1,33 @@
 <script lang="ts">
   import '~/lib/app.css';
-  import 'bytemd/dist/index.css';
-  import { Editor, Viewer } from 'bytemd';
-  import gfm from '@bytemd/plugin-gfm';
   import { tabs, currentTab } from '~/lib/helpers';
   import MdiDelete from '~icons/mdi/delete';
   import MdiPlus from '~icons/mdi/plus';
   import MdiPencil from '~icons/mdi/pencil';
 
-  const plugins = [gfm()];
+  import { Carta, CartaEditor } from 'carta-md';
+  // Component default theme
+  // import 'carta-md/default-theme.css';
+  // Markdown input theme (PrismJS)
+  import 'carta-md/dark.css';
+  // Custom carta theme
+  import '~/lib/carta.css';
+  import { onMount } from 'svelte';
+
+  const carta = new Carta({
+    // Remember to use a sanitizer to prevent XSS attacks
+    // sanitizer: mySanitizer
+  });
 
   let renameTarget = '';
   let renamed = '';
 
-  const handleChange = (e) => {
-    $tabs[$currentTab].value = e.detail.value;
-  };
-
   const addTab = () => {
-    $tabs['New Tab ' + Object.keys($tabs).length.toString()] = {
+    const key = 'New Tab ' + Object.keys($tabs).length.toString();
+    $tabs[key] = {
       value: '',
     };
+    return key;
   };
 
   const renameTab = () => {
@@ -49,6 +56,12 @@
     }
     $tabs = $tabs;
   };
+
+  onMount(() => {
+    if (Object.keys($tabs).length === 0) {
+      $currentTab = addTab();
+    }
+  });
 </script>
 
 <main>
@@ -87,35 +100,18 @@
     </ul>
   </aside>
   <div>
-    <Editor
-      value={$tabs[$currentTab].value}
-      {plugins}
-      mode="tab"
-      on:change={handleChange}
-    />
+    <CartaEditor bind:value={$tabs[$currentTab].value} {carta} />
   </div>
 </main>
 
 <style>
   :global(html, body) {
-    background-color: rgb(var(--color-surface-50));
-    color: gb(var(--color-surface-700));
+    background-color: #181a1b;
+    color: rgb(var(--color-surface-700));
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
-  }
-
-  :global(.bytemd, .bytemd-toolbar) {
-    background-color: rgb(var(--color-surface-50));
-    color: rgb(var(--color-surface-700));
-  }
-  :global(.CodeMirror) {
-    background-color: rgb(var(--color-surface-50));
-    color: rgb(var(--color-surface-700));
-  }
-  :global(.CodeMirror-cursor) {
-    border-left: 1px solid rgb(var(--color-surface-700));
   }
 
   main {
@@ -126,8 +122,8 @@
 
   div {
     display: block;
-    width: 50rem;
-    height: 50rem;
+    width: 90rem;
+    /* height: 90rem; */
   }
 
   li .content {
@@ -140,10 +136,5 @@
 
   button.active {
     background-color: rgb(var(--color-accent-400));
-  }
-
-  :global(.bytemd) {
-    height: 50rem;
-    width: 50rem;
   }
 </style>
