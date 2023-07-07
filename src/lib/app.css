@@ -78,15 +78,18 @@ Remove the inheritance of text transform in Edge and Firefox.
 }
 
 .btn {
-  background-color: rgb(var(--item-color));
+  /* background-color: rgb(var(--item-color)); */
 }
 
 .icon {
   color: aliceblue;
-  padding: 0.3rem;
-  border-radius: 1rem;
+  /* padding: 0.3rem; */
+  /* border-radius: 1rem; */
 }
 
+svg.icon {
+  display: inline-flex;
+}
 
 .error {
   --item-color: var(--color-error-400);
